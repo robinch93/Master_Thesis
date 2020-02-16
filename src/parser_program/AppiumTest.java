@@ -181,6 +181,11 @@ public class AppiumTest {
 				
 				Thread.sleep(500);
 				
+				
+				
+				----------------------------------------
+				
+				
 				assertTrue(driver.findElementByXPath("//*[contains(text(), 'Cerca persona')]").isDisplayed());
 
 				
@@ -381,6 +386,7 @@ public class AppiumTest {
 		Thread.sleep(2000);
 		
 		assertTrue(driver.findElementByXPath("//*[contains(text(), 'Biblioteca')]").isDisplayed());
+		
 		driver.findElementByXPath("//*[@placeholder='autore']").sendKeys("Sommerville");
 
 		driver.findElementByXPath("//*[contains(text(), 'CERCA')]").click();

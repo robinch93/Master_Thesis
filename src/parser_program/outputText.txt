@@ -1,0 +1,8 @@
+click
+click
+click
+click
+click
+sendKeys chekcing
+click
+sendKeys First Note

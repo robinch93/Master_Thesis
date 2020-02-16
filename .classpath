@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="D:/selenium-java-3.14.0/poi-bin-3.16-20170419/poi-3.16/poi-ooxml-3.16.jar"/>
 	<classpathentry kind="lib" path="D:/selenium-java-3.14.0/poi-bin-3.16-20170419/poi-3.16/poi-ooxml-schemas-3.16.jar"/>
 	<classpathentry kind="lib" path="D:/selenium-java-3.14.0/poi-bin-3.16-20170419/poi-3.16/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="D:/Appium/java-client-7.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

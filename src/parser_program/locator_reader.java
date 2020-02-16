@@ -29,7 +29,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import com.gargoylesoftware.htmlunit.javascript.host.worker.Worker;
 import com.google.common.net.HostSpecifier;
 
-
 public class locator_reader {
 
 	private static Row row;
@@ -38,12 +37,13 @@ public class locator_reader {
 	public static void main(String[] args) throws FileNotFoundException, Exception, IOException {
 		
 //		FileOutputStream matches = new FileOutputStream("parameters.txt");
-		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Robin Chaudhary\\Documents\\Thesis discussion\\AppiumTest.java"));  
+		String path = "C:\\Users\\Robin Chaudhary\\Documents\\Thesis discussion\\AppiumTest.java";
+		BufferedReader br = new BufferedReader(new FileReader(path));  
 		StringBuilder  stringBuilder = new StringBuilder();
 		String         ls = System.getProperty("line.separator"); 	
-		String path = System.getProperty("user.dir");
-		path += "\\output.xlsx";
-		FileOutputStream fos = new FileOutputStream(path);	
+		String pathOutput = System.getProperty("user.dir");
+		pathOutput += "\\output.xlsx";
+		FileOutputStream fos = new FileOutputStream(pathOutput);	
 		Workbook workbook = new XSSFWorkbook();	
 		Sheet sheet = workbook.createSheet("Sheet1");
 //		Sheet sheet = workbook.getSheet("Sheet1");	
@@ -72,15 +72,15 @@ public class locator_reader {
 			    stringBuilder.append(ls);
 			    try {
 			    	
+//			    Thread.sleep(100);
 			    String locator = locatorType(line);
 			    String container = containerType(line);
 			    String attribute = attributeType(line);
 			    String value = valueType(line);  
 			    String action = actionType(line);
 			    
-			    Thread.sleep(100);
 			    count = count +1;
-			 
+			    
 			    // to add all the values line by line into the respective linked list. 
 			    codelineList.add(line);
 			    locatorList.add(locator);
@@ -90,6 +90,7 @@ public class locator_reader {
 			    actionList.add(action);
 			      
 			    System.out.println(count + ": " + line);
+			    System.out.println(locator  + " --  " + locator);
 			    
 			    }catch(NullPointerException e) {
 			    	
@@ -120,7 +121,6 @@ public class locator_reader {
 			sheet.autoSizeColumn(i);
 		}
 		
-		
 		workbook.write(fos);
 		fos.close();
 		br.close();	
@@ -130,17 +130,19 @@ public class locator_reader {
 	// few examples are: driver.findElementByXPath,  driver.findElementById 
 	public static String locatorType(String locator) {
 		int count = 0;
-
+			if(locator.contains("findElementBy")) {
 				String loc_1 = StringUtils.substringBetween(locator, "driver.findElementBy", "(");
 				if(loc_1.length() != 0 ) {
 					count = count + 1;
 					return loc_1;
 				}
-
+			}else if(locator.contains("findElement(")){
 				String loc_2 = StringUtils.substringBetween(locator, "driver.findElement(By.", "(");
 				if(loc_2.length() != 0) {
 					return loc_2;
 					}
+			}
+				
 		return null;
 	}
 	

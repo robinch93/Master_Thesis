@@ -2,6 +2,9 @@ package parser_program;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +22,9 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -54,9 +60,16 @@ public class AddScreenshot {
 	}
 
 	static List<String> elementList = new LinkedList<String>(), actionList = new LinkedList<String>();
+	static String inputFile = "OmniNotesAppium";
+	static String destFile = inputFile + "Updated";
+	static String folderPath = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\parser_program\\";
+	public static String source = folderPath + inputFile + ".java";
 
+	static String destSikuliFolder = "D:\\sikuli\\" + inputFile + "GUI.sikuli";
+	static File folder;
+	
 	public static List<String> readFile() throws IOException {
-		String source = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\parser_program\\OmniNotesAppium.java";
+
 		try (BufferedReader br = new BufferedReader(new FileReader(source))) {
 			StringBuilder stringBuilder = new StringBuilder();
 			String ls = System.getProperty("line.separator");
@@ -68,8 +81,8 @@ public class AddScreenshot {
 				fileData.add(line);
 
 				try {
-//					String mobileElement = mobileElement(line);
-//					elementList.add(mobileElement);
+					String mobileElement = mobileElement(line);
+					elementList.add(mobileElement);
 					String action = actionType(line);
 					actionList.add(action);
 				} catch (NullPointerException n) {
@@ -81,14 +94,22 @@ public class AddScreenshot {
 	}
 
 	public static void writeFile(List<String> fileData) throws IOException, InterruptedException {
-		String destination = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\parser_program\\OmniNotesUpdated.java";
-		String textFile = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\parser_program\\outputText.txt";
+		String destination = folderPath + destFile + ".java";
+		String textFile = destSikuliFolder + "\\" + inputFile + "sikuli.txt";
+		
+//		folder = new File(destSikuliFolder);
+//		if (!folder.exists()) {
+//
+//			folder.mkdir();
+//		}
+//		
+//		new File(folderPath + destFile).mkdirs();
+		new File(destSikuliFolder).mkdirs();
 		int count = 0;
 
 		while (elementList.remove(null)) {
 		}
 
-		
 		String[] elementArray = elementList.toArray(new String[elementList.size()]);
 
 		for (int i = 0; i < elementArray.length; i++) {
@@ -100,6 +121,10 @@ public class AddScreenshot {
 		int j = 0, k = 0;
 		for (int i = 0; i < fileData.size(); i++) {
 			location.add(fileData.get(i));
+
+			if (fileData.get(i).contains("public class " + inputFile)) {
+				location.set(i, "public class " + destFile + " {");
+			}
 
 			if (fileData.get(i).contains("driver.find")) {
 				if (!fileData.get(i).startsWith("//")) {
@@ -141,7 +166,7 @@ public class AddScreenshot {
 					counted.add(finalList.get(c));
 				}
 			}
-//			System.out.println(finalList.get(c));
+			// System.out.println(finalList.get(c));
 		}
 
 		System.out.println("Number of lines containing driver.find in destination file: " + counted.size());
@@ -156,24 +181,38 @@ public class AddScreenshot {
 
 		while (actionList.remove(null)) {
 		}
-		
-		String[] actionArray = actionList.toArray(new String[actionList.size()]);
+
+		List<String> guiList = new ArrayList();
+
+		// String[] actionArray = actionList.toArray(new String[actionList.size()]);
 		System.out.println("action list is below");
-		
-		for (int i = 0; i < actionArray.length; i++) {
-			System.out.println(actionArray[i]);
+
+		for (int i = 0; i < actionList.size(); i++) {
+			guiList.add(actionList.get(i));
+			String action = actionList.get(i).toString();
+			if (action.contains("click")) {
+				guiList.set(i, "click(\"element" + i + ".png\")");
+			} else if (action.contains("sendKeys")) {
+				String update = action.replace("sendKeys ", "");
+				guiList.set(i, "type(\"" + update + "\")");
+			}
 		}
+
+		for (int i = 0; i < guiList.size(); i++) {
+			System.out.println(guiList.get(i));
+		}
+
+		// System.out.println("action list has elements: " + actionArray.length);
 		
-		System.out.println("action list has elements: " + actionArray.length);
-		
+
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(textFile))) {
-			for (String str : actionList) {
+			for (String str : guiList) {
 				bw.write(str);
 				bw.newLine();
 
 			}
-		}catch(NullPointerException n) {
-			
+		} catch (NullPointerException n) {
+
 		}
 	}
 
@@ -216,7 +255,7 @@ public class AddScreenshot {
 				if (act.equals("sendKeys")) {
 					String text = "";
 					text = StringUtils.substringBetween(lineCode, "sendKeys(", ")").replaceAll("^\"+|\"+$", "");
-					return act + " " +text;
+					return act + " " + text;
 				} else {
 					return act;
 				}
@@ -235,21 +274,33 @@ public class AddScreenshot {
 			BufferedImage fullImg = ImageIO.read(scrFile);
 			// Get the location of element on the page
 			Point point = ele.getLocation();
-			// Get width and height of the element
+			System.out.println(point);
 			int eleWidth = ele.getSize().getWidth();
 			int eleHeight = ele.getSize().getHeight();
+			
+			System.out.println(eleWidth + "and" + eleHeight);
 			// Crop the entire page screenshot to get only element screenshot
 			BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
+			
+			// resizing the image
+			Image reImage = eleScreenshot.getScaledInstance(eleWidth/3, eleHeight/3, Image.SCALE_DEFAULT);
+			eleScreenshot = new BufferedImage(eleWidth/3, eleHeight/3, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = eleScreenshot.createGraphics();
+			g2d.drawImage(reImage, 0, 0, null);
+			g2d.dispose();
+
 			ImageIO.write(eleScreenshot, "png", scrFile);
-			String path = "Screenshots/" + imageName + "" + ".png";
-			screenshotLocation = new File(System.getProperty("user.dir") + "/" + path);
-			System.out.println(path);
+			
+			String path = destSikuliFolder + "\\" + imageName + "" + ".png";
+			screenshotLocation = new File(path);
 			FileUtils.copyFile(scrFile, screenshotLocation);
 
 			System.out.println(screenshotLocation.toString());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(NullPointerException e) {
 			e.printStackTrace();
 		}
 		return screenshotLocation.toString();

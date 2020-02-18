@@ -1,8 +1,11 @@
-click
-click
-click
-click
-click
-sendKeys chekcing
-click
-sendKeys First Note
+click(element0.png)
+click(element1.png)
+click(element2.png)
+type(First Note)
+click(element4.png)
+type(this is the first note)
+click(element6.png)
+click(element7.png)
+click(element8.png)
+click(element9.png)
+type(First Checklist)

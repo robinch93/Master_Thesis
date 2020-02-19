@@ -60,14 +60,15 @@ public class AddScreenshot {
 	}
 
 	static List<String> elementList = new LinkedList<String>(), actionList = new LinkedList<String>();
-	static String inputFile = "OmniNotesAppium";
+	static String inputFile = "OmniNotesAppium2";
 	static String destFile = inputFile + "Updated";
-	static String folderPath = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\parser_program\\";
-	public static String source = folderPath + inputFile + ".java";
+	static String inputFolderPath = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\omniNotesAppium\\";
+	static String updatedFolderPath = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\omniNotesAppiumUpdated\\";
+	public static String source = inputFolderPath + inputFile + ".java";
 
 	static String destSikuliFolder = "D:\\sikuli\\" + inputFile + "GUI.sikuli";
 	static File folder;
-	
+
 	public static List<String> readFile() throws IOException {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(source))) {
@@ -94,16 +95,9 @@ public class AddScreenshot {
 	}
 
 	public static void writeFile(List<String> fileData) throws IOException, InterruptedException {
-		String destination = folderPath + destFile + ".java";
+		String destination = updatedFolderPath + destFile + ".java";
 		String textFile = destSikuliFolder + "\\" + inputFile + "sikuli.txt";
-		
-//		folder = new File(destSikuliFolder);
-//		if (!folder.exists()) {
-//
-//			folder.mkdir();
-//		}
-//		
-//		new File(folderPath + destFile).mkdirs();
+
 		new File(destSikuliFolder).mkdirs();
 		int count = 0;
 
@@ -119,11 +113,16 @@ public class AddScreenshot {
 		List<String> location = new ArrayList();
 		List<String> driverLineList = new ArrayList();
 		int j = 0, k = 0;
+		// add lines to location list.
 		for (int i = 0; i < fileData.size(); i++) {
 			location.add(fileData.get(i));
 
 			if (fileData.get(i).contains("public class " + inputFile)) {
 				location.set(i, "public class " + destFile + " {");
+			}
+			
+			if (fileData.get(i).contains("package ")) {
+				location.set(i, fileData.get(i).toString().replace(";", "") + "Updated;");
 			}
 
 			if (fileData.get(i).contains("driver.find")) {
@@ -195,6 +194,9 @@ public class AddScreenshot {
 			} else if (action.contains("sendKeys")) {
 				String update = action.replace("sendKeys ", "");
 				guiList.set(i, "type(\"" + update + "\")");
+			} else if (action.contains("isDisplayed")) {
+				String update = action.replace("isDisplayed ", "");
+				guiList.set(i, "exists(\"" + update + "\")");
 			}
 		}
 
@@ -203,7 +205,6 @@ public class AddScreenshot {
 		}
 
 		// System.out.println("action list has elements: " + actionArray.length);
-		
 
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(textFile))) {
 			for (String str : guiList) {
@@ -256,11 +257,16 @@ public class AddScreenshot {
 					String text = "";
 					text = StringUtils.substringBetween(lineCode, "sendKeys(", ")").replaceAll("^\"+|\"+$", "");
 					return act + " " + text;
-				} else {
+				} else if(act.equals("isDisplayed")) {
+					String assertText = "";
+					assertText = StringUtils.substringBetween(lineCode, "text,'", "'").replaceAll("^\"+|\"+$", "");
+					return act + " " + assertText;
+				}else {
 					return act;
 				}
 			}
 		}
+
 		return act;
 	}
 
@@ -277,20 +283,20 @@ public class AddScreenshot {
 			System.out.println(point);
 			int eleWidth = ele.getSize().getWidth();
 			int eleHeight = ele.getSize().getHeight();
-			
+
 			System.out.println(eleWidth + "and" + eleHeight);
 			// Crop the entire page screenshot to get only element screenshot
 			BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
-			
+
 			// resizing the image
-			Image reImage = eleScreenshot.getScaledInstance(eleWidth/3, eleHeight/3, Image.SCALE_DEFAULT);
-			eleScreenshot = new BufferedImage(eleWidth/3, eleHeight/3, BufferedImage.TYPE_INT_ARGB);
+			Image reImage = eleScreenshot.getScaledInstance(eleWidth / 3, eleHeight / 3, Image.SCALE_DEFAULT);
+			eleScreenshot = new BufferedImage(eleWidth / 3, eleHeight / 3, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g2d = eleScreenshot.createGraphics();
 			g2d.drawImage(reImage, 0, 0, null);
 			g2d.dispose();
 
 			ImageIO.write(eleScreenshot, "png", scrFile);
-			
+
 			String path = destSikuliFolder + "\\" + imageName + "" + ".png";
 			screenshotLocation = new File(path);
 			FileUtils.copyFile(scrFile, screenshotLocation);
@@ -300,7 +306,7 @@ public class AddScreenshot {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 		return screenshotLocation.toString();

@@ -1,4 +1,4 @@
-package parser_program;
+package omniNotesAppiumUpdated;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,6 +15,8 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
+import static org.junit.Assert.assertTrue;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +32,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class OmniNotesAppiumUpdated {
+public class OmniNotesAppium9Updated {
 
 	public static void main(String[] args) throws MalformedURLException, InterruptedException {
 
@@ -48,66 +50,57 @@ public class OmniNotesAppiumUpdated {
 
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, dc);
 		Thread.sleep(3000);
-
+		
 		MobileElement element0 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_expand_menu_button");
 		AddScreenshot.elementScreenshot(driver, element0 , "element0");
 		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_expand_menu_button").click();
 
 
-		Thread.sleep(200);
-		MobileElement element1 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_note");
+		Thread.sleep(300);
+		MobileElement element1 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_checklist");
 		AddScreenshot.elementScreenshot(driver, element1 , "element1");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_note").click();
+		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_checklist").click();
 
 
 		Thread.sleep(200);
 		MobileElement element2 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title");
 		AddScreenshot.elementScreenshot(driver, element2 , "element2");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title").click();
-
-
-		MobileElement element3 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title");
-		AddScreenshot.elementScreenshot(driver, element3 , "element3");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title").sendKeys("First Note");
-
-
-		Thread.sleep(200);
-		MobileElement element4 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content");
-		AddScreenshot.elementScreenshot(driver, element4 , "element4");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content").click();
-
-
-		MobileElement element5 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content");
-		AddScreenshot.elementScreenshot(driver, element5 , "element5");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content").sendKeys("this is the first note");
-
-
-		MobileElement element6 = driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]");
-		AddScreenshot.elementScreenshot(driver, element6 , "element6");
-		driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]").click();
-
-
-		Thread.sleep(300);
-		MobileElement element7 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_expand_menu_button");
-		AddScreenshot.elementScreenshot(driver, element7 , "element7");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_expand_menu_button").click();
-
-
-		Thread.sleep(300);
-		MobileElement element8 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_checklist");
-		AddScreenshot.elementScreenshot(driver, element8 , "element8");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_checklist").click();
-
-
-		Thread.sleep(200);
-		MobileElement element9 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title");
-		AddScreenshot.elementScreenshot(driver, element9 , "element9");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title").click();
+		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title").sendKeys("First Checklist");
 
 		
-		MobileElement element10 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title");
-		AddScreenshot.elementScreenshot(driver, element10 , "element10");
-		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title").sendKeys("First Checklist");
+		Thread.sleep(200);	
+		MobileElement element3 = driver.findElementById("it.feio.android.omninotes.alpha:id/menu_category");
+		AddScreenshot.elementScreenshot(driver, element3 , "element3");
+		driver.findElementById("it.feio.android.omninotes.alpha:id/menu_category").click();
+
+		
+		Thread.sleep(300);
+		MobileElement element4 = driver.findElementByXPath("//*[contains(@text,'ADD CATEGORY')]");
+		AddScreenshot.elementScreenshot(driver, element4 , "element4");
+		driver.findElementByXPath("//*[contains(@text,'ADD CATEGORY')]").click();
+
+		
+		Thread.sleep(1500);
+		MobileElement element5 = driver.findElementByXPath("//*[contains(@resource-id,'category_title')]");
+		AddScreenshot.elementScreenshot(driver, element5 , "element5");
+		driver.findElementByXPath("//*[contains(@resource-id,'category_title')]").sendKeys("Work");
+
+		
+		MobileElement element6 = driver.findElementById("it.feio.android.omninotes.alpha:id/save");
+		AddScreenshot.elementScreenshot(driver, element6 , "element6");
+		driver.findElementById("it.feio.android.omninotes.alpha:id/save").click();
+
+		
+		Thread.sleep(200);
+		MobileElement element7 = driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]");
+		AddScreenshot.elementScreenshot(driver, element7 , "element7");
+		driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]").click();
+
+		
+		Thread.sleep(1500);            
+		MobileElement element8 = driver.findElementById("//*[contains(@text,'First Checklist')]");
+		AddScreenshot.elementScreenshot(driver, element8 , "element8");
+		assertTrue(driver.findElementById("//*[contains(@text,'First Checklist')]").isDisplayed());
 
 
 	}

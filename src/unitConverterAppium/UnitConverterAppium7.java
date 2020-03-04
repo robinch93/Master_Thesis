@@ -77,7 +77,8 @@ public class UnitConverterAppium7 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 km/h is equal to 0.6214 mile/h')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 km/h is equal "
+				+ "to 0.6214 mile/h')]").isDisplayed());
 
 	} 
 

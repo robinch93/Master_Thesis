@@ -77,7 +77,8 @@ public class UnitConverterAppium10 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Fahrenheit is equal to -17.2222 Celcius')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Fahrenheit is equal to "
+				+ "-17.2222 Celcius')]").isDisplayed());
 
 	} 
 

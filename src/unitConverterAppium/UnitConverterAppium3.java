@@ -77,7 +77,8 @@ public class UnitConverterAppium3 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Yard is equal to 3 Feet')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Yard is equal "
+				+ "to 3 Feet')]").isDisplayed());
 
 	} 
 

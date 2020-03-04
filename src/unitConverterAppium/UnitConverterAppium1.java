@@ -77,7 +77,8 @@ public class UnitConverterAppium1 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(500);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Pounds is equal to 14.5833 Ounces')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Pounds is equal to "
+				+ "14.5833 Ounces')]").isDisplayed());
 
 	} 
 

@@ -77,7 +77,8 @@ public class UnitConverterAppium6 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(500);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 US Gal is equal to 4.0582 Liter')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 US Gal is equal "
+				+ "to 4.0582 Liter')]").isDisplayed());
 
 	} 
 

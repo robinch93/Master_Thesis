@@ -77,7 +77,8 @@ public class UnitConverterAppium5 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Liter is equal to 1000 Milliliter')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Liter is equal "
+				+ "to 1000 Milliliter')]").isDisplayed());
 
 	} 
 

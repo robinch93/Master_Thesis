@@ -77,7 +77,8 @@ public class UnitConverterAppium8 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 knot is equal to 1.8520 km/h')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 knot is equal "
+				+ "to 1.8520 km/h')]").isDisplayed());
 
 	} 
 

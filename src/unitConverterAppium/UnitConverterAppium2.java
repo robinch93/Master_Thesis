@@ -77,7 +77,8 @@ public class UnitConverterAppium2 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1500);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Grains is equal to 0.0001 Kilograms')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Grains is equal to "
+				+ "0.0001 Kilograms')]").isDisplayed());
 
 	} 
 

@@ -77,7 +77,8 @@ public class UnitConverterAppium4 {
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 		
 		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Mile is equal to 0.0485 Kilometer')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Mile is equal to "
+				+ "0.0485 Kilometer')]").isDisplayed());
 
 	} 
 

@@ -239,15 +239,18 @@ public class AddScreenshot {
 			if (act.length() != 0) {
 				if (act.equals("sendKeys")) {
 					String text = "";
-					text = StringUtils.substringBetween(lineCode, "sendKeys(", ")").replaceAll("^\"+|\"+$", "");
+					text = StringUtils.substringBetween(lineCode, "sendKeys(", ")")
+							.replaceAll("^\"+|\"+$", "");
 					return act + " " + text;
 				} else if (act.equals("isDisplayed")) {
 					String assertText = "";
-					assertText = StringUtils.substringBetween(lineCode, "text,'", "'").replaceAll("^\"+|\"+$", "");
+					assertText = StringUtils.substringBetween(lineCode, "text,'", "'")
+							.replaceAll("^\"+|\"+$", "");
 					return act + " " + assertText;
 				} else if (act.equals("getText")) {
 					String assertEquals = "";
-					assertEquals = StringUtils.substringBetween(lineCode, "getText(),\"", "\"").replaceAll("^\"+|\"+$",
+					assertEquals = StringUtils.substringBetween(lineCode, "getText(),\"", "\"")
+							.replaceAll("^\"+|\"+$",
 							"");
 					return act + " " + assertEquals;
 				} else {
@@ -274,11 +277,14 @@ public class AddScreenshot {
 
 			System.out.println(eleWidth + "and" + eleHeight);
 			// Crop the entire page screenshot to get only element screenshot
-			BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
+			BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(),
+					eleWidth, eleHeight);
 
 			// resizing the image
-			Image reImage = eleScreenshot.getScaledInstance(eleWidth / 3, eleHeight / 3, Image.SCALE_DEFAULT);
-			eleScreenshot = new BufferedImage(eleWidth / 3, eleHeight / 3, BufferedImage.TYPE_INT_ARGB);
+			Image reImage = eleScreenshot.getScaledInstance(eleWidth / 3, eleHeight / 3,
+					Image.SCALE_DEFAULT);
+			eleScreenshot = new BufferedImage(eleWidth / 3, eleHeight / 3, 
+					BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g2d = eleScreenshot.createGraphics();
 			g2d.drawImage(reImage, 0, 0, null);
 			g2d.dispose();

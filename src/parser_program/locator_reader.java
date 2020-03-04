@@ -37,7 +37,7 @@ public class locator_reader {
 	public static void main(String[] args) throws FileNotFoundException, Exception, IOException {
 		
 //		FileOutputStream matches = new FileOutputStream("parameters.txt");
-		String path = "C:\\Users\\Robin Chaudhary\\Documents\\Thesis discussion\\AppiumTest.java";
+		String path = "C:\\Users\\Robin Chaudhary\\eclipse-workspace\\parser_program\\src\\parser_program\\AppiumTest.java";
 		BufferedReader br = new BufferedReader(new FileReader(path));  
 		StringBuilder  stringBuilder = new StringBuilder();
 		String         ls = System.getProperty("line.separator"); 	

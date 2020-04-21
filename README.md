@@ -17,3 +17,7 @@ The experiment was conducted on three mobile applications:
 All the test scripts were run through Sikuli tool for three apps (10 test scripts for each app). It was possible to convert all the 30 layout based test scripts into visual based GUI test scripts. A successful test execution in Sikuli tool looks like below:
 
 ![](docs/omni_notes_1_GUI_sikuli.PNG)
+
+Using below link you can see the presentation file for better understanding of the project. 
+
+[Thesis_ppt](https://1drv.ms/p/s!Am3ut3u_p6QTiinZt5ueTKp9Ce0Z?e=Jk3zS2)

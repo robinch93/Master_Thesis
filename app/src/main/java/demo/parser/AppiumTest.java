@@ -1,6 +1,11 @@
-package tests;
+package demo.parser;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+// import static org.junit.jupiter.api.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,7 +35,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.touch.TouchActions;
+// import org.openqa.selenium.interactions.touch.TouchActions;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,17 +45,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import demo.parser.AddScreenshot;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidKeyCode;
+// import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
+@DisplayName("Write assertions for booleans")
 public class AppiumTest {
 	
 	
@@ -57,9 +65,11 @@ public class AppiumTest {
 	
 	
 	private static DesiredCapabilities caps;
+	//Instantiate Appium Driver
+	protected static AndroidDriver<MobileElement> driver;
 	
 	
-	
+	@Test
 	private static void test000_prova() throws InterruptedException {
 		
 		//Instantiate Appium Driver
@@ -85,18 +95,15 @@ public class AppiumTest {
 				
 				
 				System.out.println("clicking on menu search");
-				driver.findElementById("menu_search").click();
+				driver.findElement(By.id("menu_search")).click();
 				
-		//		driver.findElementByXPath("//*[@resource-id='it.feio.android.omninotes:id/menu_search']").click();
+		//		driver.findElement(By.xpath("//*[@resource-id='it.feio.android.omninotes:id/menu_search']")).click();
 
 				
 				//JavascriptExecutor executor = (JavascriptExecutor) driver;
 				//Object object=executor.executeScript("var result = []; ", elements.toArray());
 				
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -109,7 +116,7 @@ public class AppiumTest {
 		
 	}
 
-	
+	@Test
 	private static void test1_personewrong() throws InterruptedException {
 		
 		//Instantiate Appium Driver
@@ -122,16 +129,16 @@ public class AppiumTest {
 				driver.context("WEBVIEW_it.polito.politoapp");
 				
 				Thread.sleep(5000);
-				driver.findElementByXPath("//div[contains(text(), 'PERSONE')]").click();
+				driver.findElement(By.xpath("//div[contains(text(), 'PERSONE')]")).click();
 				
 				Thread.sleep(500);
 				
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Cerca persona')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Cerca persona')]")).isDisplayed());
 
-				driver.findElementByXPath("//input[@id='tb_name']").sendKeys("a");
+				driver.findElement(By.xpath("//input[@id='tb_name']")).sendKeys("a");
 				
 				
-				driver.findElementById("tb_name").sendKeys("a");
+				driver.findElement(By.id("tb_name")).sendKeys("a");
 				
 				driver.findElement(By.id("tb_name")).sendKeys("a");
 				
@@ -140,21 +147,21 @@ public class AppiumTest {
 				//parameter = "a"
 				
 				
-				driver.findElementByXPath("//span[contains(text(), 'CERCA')]").click();
+				driver.findElement(By.xpath("//span[contains(text(), 'CERCA')]")).click();
 				//search with text "CERCA"
 				//click instruction
 				//parameter = NULL
 				Thread.sleep(3000);
 				
-				Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Per favore, inserisci almeno tre caratteri per il nome/cognome.')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Per favore, inserisci almeno tre caratteri per il nome/cognome.')]")).isDisplayed());
 
 				
 				Thread.sleep(3000);
-				driver.findElementByXPath("//button[contains(text(), 'OK')]").click();
+				driver.findElement(By.xpath("//button[contains(text(), 'OK')]")).click();
 				Thread.sleep(500);
 				((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 				
-				Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 
 		} catch (MalformedURLException e) {
@@ -166,7 +173,7 @@ public class AppiumTest {
 
 		
 	}
-	
+	@Test
 	private static void test2_personeright() throws InterruptedException {
 		
 		//Instantiate Appium Driver
@@ -177,33 +184,29 @@ public class AppiumTest {
 				
 				Thread.sleep(2000);
 
-				driver.findElementByXPath("//div[contains(text(), 'PERSONE')]").click();
+				driver.findElement(By.xpath("//div[contains(text(), 'PERSONE')]")).click();
 				
 				Thread.sleep(500);
 				
 				
-				
-				----------------------------------------
-				
-				
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Cerca persona')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Cerca persona')]")).isDisplayed());
 
 				
-				driver.findElementByXPath("//input[@id='tb_name']").sendKeys("bar");
-				driver.findElementByXPath("//span[contains(text(), 'CERCA')]").click();
+				driver.findElement(By.xpath("//input[@id='tb_name']")).sendKeys("bar");
+				driver.findElement(By.xpath("//span[contains(text(), 'CERCA')]")).click();
 
 				Thread.sleep(5000);
 				
 				
-				driver.findElementByXPath("//ons-list-item[contains(text(), 'Elena Maria')]").click();
+				driver.findElement(By.xpath("//ons-list-item[contains(text(), 'Elena Maria')]")).click();
 				
 				Thread.sleep(2000);
 							
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Elena Maria BARALIS')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Dipartimento di Automatica e Informatica (DAUIN)')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'elena.baralis@polito.it')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), '0110907075')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'INSERISCI IN RUBRICA')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Elena Maria BARALIS')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Dipartimento di Automatica e Informatica (DAUIN)')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'elena.baralis@polito.it')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), '0110907075')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'INSERISCI IN RUBRICA')]")).isDisplayed());
 
 				
 				Thread.sleep(2000);
@@ -221,7 +224,7 @@ public class AppiumTest {
 
 
 
-				Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 
 
@@ -233,7 +236,7 @@ public class AppiumTest {
 
 	}
 	
-	
+	@Test
 	private static void test3_contatti() throws InterruptedException {
 		//Instantiate Appium Driver
 		try {
@@ -245,34 +248,34 @@ public class AppiumTest {
 				
 				Thread.sleep(4000);
 
-				driver.findElementByXPath("//div[contains(text(), 'GESTIONE')]").click();
+				driver.findElement(By.xpath("//div[contains(text(), 'GESTIONE')]")).click();
 
 				
 				Thread.sleep(2000);
 
 				Thread.sleep(500);
 				
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'SEGNALA EMERGENZA')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'SEGNALA EMERGENZA')]")).isDisplayed());
 
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Gestione emergenze')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Nessuna risposta?')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Gestione emergenze')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Nessuna risposta?')]")).isDisplayed());
 
 				
-				driver.findElementByXPath("//*[contains(text(), 'DOVE?')]").click();
+				driver.findElement(By.xpath("//*[contains(text(), 'DOVE?')]")).click();
 				
 				
 				Thread.sleep(2000);
 				
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'TO - Sede Centrale')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'TO - Valentino')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'TO - via Morgari')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'TO - Lingotto')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'TO - Mirafiori')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'ALESSANDRIA')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'BIELLA')]").isDisplayed());
-				Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'MONDOVI')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'TO - Sede Centrale')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'TO - Valentino')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'TO - via Morgari')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'TO - Lingotto')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'TO - Mirafiori')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'ALESSANDRIA')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'BIELLA')]")).isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'MONDOVI')]")).isDisplayed());
 
-				driver.findElementByXPath("//*[contains(text(), 'TO - Sede Centrale')]").click();
+				driver.findElement(By.xpath("//*[contains(text(), 'TO - Sede Centrale')]")).click();
 				
 				
 
@@ -310,7 +313,7 @@ public class AppiumTest {
 				((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 				Thread.sleep(500);
 				
-				Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+				assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 
 
@@ -329,7 +332,7 @@ public class AppiumTest {
 	
 	private static void test4_segnalaproblema() throws InterruptedException, MalformedURLException {
 		
-		AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
+		AppiumDriver driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
 		
 		
 		
@@ -337,23 +340,23 @@ public class AppiumTest {
 		
 		Thread.sleep(2000);
 
-		driver.findElementByXPath("//*[contains(text(), 'SEGNALA')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'SEGNALA')]")).click();
 		
 		Thread.sleep(2000);
 		
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Segnala problema')]").isDisplayed());		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'INVIA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Segnala problema')]")).isDisplayed());		
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'INVIA')]")).isDisplayed());
 
-		driver.findElementByXPath("//*[contains(text(), 'seleziona il tipo di problema...')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'seleziona il tipo di problema...')]")).click();
 
 		Thread.sleep(500);
 		
-		driver.findElementByXPath("//*[contains(text(), 'App')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'App')]")).click();
 		
 		Thread.sleep(500);
 		
-		driver.findElementByXPath("//*[@placeholder='Descrivi il problema...']").sendKeys("aaa");
+		driver.findElement(By.xpath("//*[@placeholder='Descrivi il problema...']")).sendKeys("aaa");
 		
 		
 		Thread.sleep(3000);
@@ -361,7 +364,7 @@ public class AppiumTest {
 
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		
-		Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 
 		
@@ -381,29 +384,29 @@ public class AppiumTest {
 		
 		Thread.sleep(2000);
 
-		driver.findElementByXPath("//*[contains(text(), 'BIBLIOTECA')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'BIBLIOTECA')]")).click();
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Biblioteca')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Biblioteca')]")).isDisplayed());
 		
-		driver.findElementByXPath("//*[@placeholder='autore']").sendKeys("Sommerville");
+		driver.findElement(By.xpath("//*[@placeholder='autore']")).sendKeys("Sommerville");
 
-		driver.findElementByXPath("//*[contains(text(), 'CERCA')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'CERCA')]")).click();
 
 		Thread.sleep(2000);
 		
-		driver.findElementByXPath("//*[text()='Software engineering']").click();
+		driver.findElement(By.xpath("//*[text()='Software engineering']")).click();
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()='Software engineering' and @class='titolo ng-binding']").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Addison- Wesley')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()='1995' and @class='anno ng-binding ng-scope']").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Autore:')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()='Sommerville, Ian' and @class='ng-binding ng-scope']").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Formato:')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'xvi, 742 p. ; 24 cm')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()='Software engineering' and @class='titolo ng-binding']")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Addison- Wesley')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()='1995' and @class='anno ng-binding ng-scope']")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Autore:')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()='Sommerville, Ian' and @class='ng-binding ng-scope']")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Formato:')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'xvi, 742 p. ; 24 cm')]")).isDisplayed());
 
 
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -417,7 +420,7 @@ public class AppiumTest {
 		Thread.sleep(500);
 
 		
-		Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 
 		
@@ -428,37 +431,35 @@ public class AppiumTest {
 	
 	private static void test6_bibliotecasearchtitleyear() throws InterruptedException, MalformedURLException {
 		
-		AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
+		AppiumDriver driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), caps);
 		
-		
-		
-		driver.context("WEBVIEW_it.polito.politoapp");
-		
+		// driver.context("WEBVIEW_it.polito.politoapp");
+		// driver.setconte
 		Thread.sleep(2000);
 
-		driver.findElementByXPath("//*[contains(text(), 'BIBLIOTECA')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'BIBLIOTECA')]")).click();
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Biblioteca')]").isDisplayed());
-		driver.findElementByXPath("//*[@placeholder='titolo']").sendKeys("Chemical");
-		driver.findElementByXPath("//*[@placeholder='anno']").sendKeys("2019");
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Biblioteca')]")).isDisplayed());
+		driver.findElement(By.xpath("//*[@placeholder='titolo']")).sendKeys("Chemical");
+		driver.findElement(By.xpath("//*[@placeholder='anno']")).sendKeys("2019");
 
-		driver.findElementByXPath("//*[contains(text(), 'CERCA')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'CERCA')]")).click();
 
 		Thread.sleep(4000);
 		
-		driver.findElementByXPath("//*[text()=\"Perry's chemical engineers' handbook\"]").click();
+		driver.findElement(By.xpath("//*[text()=\"Perry's chemical engineers' handbook\"]")).click();
 		
 		Thread.sleep(4000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()=\"Perry's chemical engineers' handbook\" and @class='titolo ng-binding']").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'McGraw-Hill Education')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()='2019' and @class='anno ng-binding ng-scope']").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Autori:')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()='Green, Don W.' and @class='ng-binding ng-scope']").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Formato:')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), '1 v. (varie sequenze) ; 26 cm')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()=\"Perry's chemical engineers' handbook\" and @class='titolo ng-binding']")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'McGraw-Hill Education')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()='2019' and @class='anno ng-binding ng-scope']")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Autori:')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()='Green, Don W.' and @class='ng-binding ng-scope']")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Formato:')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), '1 v. (varie sequenze) ; 26 cm')]")).isDisplayed());
 
 
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -472,7 +473,7 @@ public class AppiumTest {
 		Thread.sleep(500);
 
 		
-		Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 		System.out.println("test 6 ok");
 
@@ -491,9 +492,9 @@ public class AppiumTest {
 		Thread.sleep(2000);
 
 		
-		driver.findElementByXPath("//div[@class='campanellaNotif ng-scope']").click();
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Messaggi')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Al momento non sono presenti messaggi.')]").isDisplayed());
+		driver.findElement(By.xpath("//div[@class='campanellaNotif ng-scope']")).click();
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Messaggi')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Al momento non sono presenti messaggi.')]")).isDisplayed());
 		
 		
 		
@@ -506,7 +507,7 @@ public class AppiumTest {
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 
 		
-		Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 		
 		System.out.println("test 7 ok");
@@ -522,19 +523,19 @@ public class AppiumTest {
 		
 		Thread.sleep(2000);
 
-		driver.findElementByXPath("//*[@class='c_sign ng-scope']").click();
+		driver.findElement(By.xpath("//*[@class='c_sign ng-scope']")).click();
 
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'LOGIN')]").isDisplayed());
-		driver.findElementByXPath("//*[@placeholder='user name']").sendKeys("s231479");
-		driver.findElementByXPath("//*[@placeholder='password']").sendKeys("fVazquez20");
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'LOGIN')]")).isDisplayed());
+		driver.findElement(By.xpath("//*[@placeholder='user name']")).sendKeys("s231479");
+		driver.findElement(By.xpath("//*[@placeholder='password']")).sendKeys("fVazquez20");
 		
-		driver.findElementByXPath("//*[contains(text(), 'ACCEDI')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'ACCEDI')]")).click();
 
 		Thread.sleep(15000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Riccardo COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Riccardo COPPOLA')]")).isDisplayed());
 
 		System.out.println("test 8 ok");
 
@@ -553,19 +554,19 @@ public class AppiumTest {
 		
 		Thread.sleep(5000);
 
-		driver.findElementByXPath("//*[contains(text(), 'CARICO')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'CARICO')]")).click();
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Carico didattico')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Carico didattico')]")).isDisplayed());
 
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'The new Internet Society')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'The new Internet Society')]")).isDisplayed());
 		
 		
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		
 		Thread.sleep(2000);
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Riccardo COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Riccardo COPPOLA')]")).isDisplayed());
 
 
 		System.out.println("test 9 ok");
@@ -585,18 +586,18 @@ public class AppiumTest {
 		
 		Thread.sleep(5000);
 
-		driver.findElementByXPath("//*[contains(text(), 'LIBRETTO')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'LIBRETTO')]")).click();
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Libretto')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Empirical methods in software')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Project management')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Libretto')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Empirical methods in software')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Project management')]")).isDisplayed());
 
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		
 		Thread.sleep(2000);
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Riccardo COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Riccardo COPPOLA')]")).isDisplayed());
 
 		System.out.println("test 10 ok");
 
@@ -616,17 +617,17 @@ public class AppiumTest {
 		Thread.sleep(2000);
 		
 	
-		driver.findElementByXPath("//*[@class='fa fa-power-off ng-scope']").click();
+		driver.findElement(By.xpath("//*[@class='fa fa-power-off ng-scope']")).click();
 
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Sei sicuro di voler effettuare il logout?')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[text()='Attenzione']").isDisplayed());
-		driver.findElementByXPath("//*[contains(text(), 'OK')]").click();
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Sei sicuro di voler effettuare il logout?')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[text()='Attenzione']")).isDisplayed());
+		driver.findElement(By.xpath("//*[contains(text(), 'OK')]")).click();
 
 		
 		Thread.sleep(2000);
 
-		Assertions.assertTrue(driver.findElementByXPath("//div[contains(text(), 'Politecnico')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'Politecnico')]")).isDisplayed());
 
 		
 
@@ -644,20 +645,20 @@ public class AppiumTest {
 		
 		Thread.sleep(2000);
 
-		driver.findElementByXPath("//*[@class='c_sign ng-scope']").click();
+		driver.findElement(By.xpath("//*[@class='c_sign ng-scope']")).click();
 
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'LOGIN')]").isDisplayed());
-		driver.findElementByXPath("//*[@placeholder='user name']").sendKeys("D38485");
-		driver.findElementByXPath("//*[@placeholder='password']").sendKeys("fVazquez20");
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'LOGIN')]")).isDisplayed());
+		driver.findElement(By.xpath("//*[@placeholder='user name']")).sendKeys("D38485");
+		driver.findElement(By.xpath("//*[@placeholder='password']")).sendKeys("fVazquez20");
 		
-		driver.findElementByXPath("//*[contains(text(), 'ACCEDI')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'ACCEDI')]")).click();
 
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'RICCARDO COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'RICCARDO COPPOLA')]")).isDisplayed());
 
 		System.out.println("test 12 ok");
 
@@ -675,18 +676,18 @@ public class AppiumTest {
 		
 		Thread.sleep(2000);
 
-		driver.findElementByXPath("//*[contains(text(), 'INCARICHI')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'INCARICHI')]")).click();
 		
 		Thread.sleep(500);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Incarichi')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Incarichi')]")).isDisplayed());
 
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Databases')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Databases')]")).isDisplayed());
 
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		
 		Thread.sleep(500);
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'RICCARDO COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'RICCARDO COPPOLA')]")).isDisplayed());
 
 		System.out.println("test 13 ok");
 
@@ -702,28 +703,28 @@ public class AppiumTest {
 		
 		Thread.sleep(5000);
 
-		driver.findElementByXPath("//*[contains(text(), 'APPELLI')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'APPELLI')]")).click();
 		
 		Thread.sleep(2000);
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Appelli esami')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Object-oriented programming')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), '19/04/2019')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), '14:00')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'prenotati')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), '01SXPPT')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'SCRITTO')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'scade il 16/04/2019')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Appelli esami')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Object-oriented programming')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), '19/04/2019')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), '14:00')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'prenotati')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), '01SXPPT')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'SCRITTO')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'scade il 16/04/2019')]")).isDisplayed());
 
-		driver.findElementByXPath("//*[contains(text(), 'Object-oriented programming')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'Object-oriented programming')]")).click();
 		
 		
 		Thread.sleep(5000);
 		
 		//SISTEMARE COME NEL TEST BIBLIOTECA (DOPPIO IDENTIFICATORE CLASSE+TEXT PRECISO)
-		//Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'INVIA PRESENZE')]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), \"Iscritti all'appello\")]").isDisplayed());
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Aggiungi studente')]").isDisplayed());
+		//assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'INVIA PRESENZE')]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), \"Iscritti all'appello\")]")).isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Aggiungi studente')]")).isDisplayed());
 
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 
@@ -732,7 +733,7 @@ public class AppiumTest {
 		
 		Thread.sleep(500);
 
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'RICCARDO COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'RICCARDO COPPOLA')]")).isDisplayed());
 		
 		System.out.println("test 14 ok");
 
@@ -764,28 +765,28 @@ public class AppiumTest {
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.DPAD_UP));
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.DPAD_DOWN));
 
-		driver.findElementByXPath("//*[contains(text(), 'SEGNALA')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'SEGNALA')]")).click();
 		
 		Thread.sleep(2000);
 		
 		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'Segnala problema')]").isDisplayed());		
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'INVIA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Segnala problema')]")).isDisplayed());		
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'INVIA')]")).isDisplayed());
 
-		driver.findElementByXPath("//*[contains(text(), 'seleziona il tipo di problema...')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'seleziona il tipo di problema...')]")).click();
 
 		Thread.sleep(500);
 		
-		driver.findElementByXPath("//*[contains(text(), 'Logistico elettrico')]").click();
+		driver.findElement(By.xpath("//*[contains(text(), 'Logistico elettrico')]")).click();
 		
-		driver.findElementByXPath("//*[@placeholder='Locale/luogo']").sendKeys("100");
+		driver.findElement(By.xpath("//*[@placeholder='Locale/luogo']")).sendKeys("100");
 		
 		Thread.sleep(2000);
 		
 		((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		
 		Thread.sleep(2000);
-		Assertions.assertTrue(driver.findElementByXPath("//*[contains(text(), 'RICCARDO COPPOLA')]").isDisplayed());
+		assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'RICCARDO COPPOLA')]")).isDisplayed());
 
 		System.out.println("test 15 ok");
 

@@ -1,4 +1,4 @@
-package parser_program;
+package demo.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,7 +26,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.gargoylesoftware.htmlunit.javascript.host.worker.Worker;
+// import com.gargoylesoftware.htmlunit.javascript.host.Worker;
 import com.google.common.net.HostSpecifier;
 
 public class locator_reader {

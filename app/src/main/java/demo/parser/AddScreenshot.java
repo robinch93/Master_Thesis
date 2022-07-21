@@ -1,55 +1,34 @@
-package demo.parser.AddScreenshot;
+package demo.parser;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.concurrent.TimeUnit;
-
-import org.seleniumhq.selenium.By;
-import org.seleniumhq.selenium.WebElement;
-import org.seleniumhq.selenium.remote.DesiredCapabilities;
-
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
-
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.LineNumberReader;
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.spi.LocationInfo;
-import org.apache.xml.serializer.OutputPropertyUtils;
-import org.seleniumhq.selenium.By;
-import org.seleniumhq.selenium.OutputType;
-import org.seleniumhq.selenium.Point;
-import org.seleniumhq.selenium.TakesScreenshot;
-import org.seleniumhq.selenium.remote.DesiredCapabilities;
+// import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.OutputType;
+// import org.openqa.*;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
+
+// import org.seleniumhq.selenium.By;
+// import org.seleniumhq.selenium.WebElement;
+// import org.seleniumhq.selenium.remote.DesiredCapabilities;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class AddScreenshot {
 
@@ -63,7 +42,8 @@ public class AddScreenshot {
 	static String inputFile = "OmniNotesAppium2";
 	static String destFile = inputFile + "Updated";
 	static String inputFolderPath = System.getProperty("user.dir") + "../apps/omniNotesApp/omniNotesAppInputScripts";
-	static String updatedFolderPath = System.getProperty("user.dir") + "../apps/omniNotesApp/omniNotesAppUpdatedScripts";
+	static String updatedFolderPath = System.getProperty("user.dir")
+			+ "../apps/omniNotesApp/omniNotesAppUpdatedScripts";
 	public static String source = inputFolderPath + inputFile + ".java";
 
 	static String destSikuliFolder = System.getProperty("user.dir") + "../../../../sikuli/" + inputFile + "GUI.sikuli";
@@ -120,7 +100,7 @@ public class AddScreenshot {
 			if (fileData.get(i).contains("public class " + inputFile)) {
 				location.set(i, "public class " + destFile + " {");
 			}
-			
+
 			if (fileData.get(i).contains("package ")) {
 				location.set(i, fileData.get(i).toString().replace(";", "") + "Updated;");
 			}
@@ -257,11 +237,11 @@ public class AddScreenshot {
 					String text = "";
 					text = StringUtils.substringBetween(lineCode, "sendKeys(", ")").replaceAll("^\"+|\"+$", "");
 					return act + " " + text;
-				} else if(act.equals("isDisplayed")) {
+				} else if (act.equals("isDisplayed")) {
 					String assertText = "";
 					assertText = StringUtils.substringBetween(lineCode, "text,'", "'").replaceAll("^\"+|\"+$", "");
 					return act + " " + assertText;
-				}else {
+				} else {
 					return act;
 				}
 			}
@@ -270,6 +250,7 @@ public class AddScreenshot {
 		return act;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static String elementScreenshot(AppiumDriver driver, MobileElement ele, String imageName)
 			throws InterruptedException {
 		Thread.sleep(200);

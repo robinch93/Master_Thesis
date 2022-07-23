@@ -9,49 +9,66 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-// import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.OutputType;
-// import org.openqa.*;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
-
-// import org.seleniumhq.selenium.By;
-// import org.seleniumhq.selenium.WebElement;
-// import org.seleniumhq.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public class AddScreenshot {
 
-	public static void main(String[] args) throws InterruptedException, IOException {
-
-		List<String> data = readFile();
-		writeFile(data);
-	}
-
-	static List<String> elementList = new LinkedList<String>(), actionList = new LinkedList<String>();
-	static String inputFile = "OmniNotesAppium2";
-	static String destFile = inputFile + "Updated";
-	static String inputFolderPath = System.getProperty("user.dir") + "../apps/omniNotesApp/omniNotesAppInputScripts";
-	static String updatedFolderPath = System.getProperty("user.dir")
-			+ "../apps/omniNotesApp/omniNotesAppUpdatedScripts";
-	public static String source = inputFolderPath + inputFile + ".java";
-
-	static String destSikuliFolder = System.getProperty("user.dir") + "../../../../sikuli/" + inputFile + "GUI.sikuli";
+	static String inputFile;
+	static String destFile;
+	static String inputFolderPath;
+	static String updatedFolderPath;
+	static String source;
+	static String destSikuliFolder;
 	static File folder;
 
-	public static List<String> readFile() throws IOException {
+	static List<String> elementList = new ArrayList<String>();
+	static List<String> actionList = new ArrayList<String>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(source))) {
+	public static void main(String[] args) throws InterruptedException, IOException {
+		String inputTestPath = System.getProperty("user.dir")
+				+
+				// "/app/src/test/java/demo/apps/calculatorApp/calculatorAppInputScripts/CalculatorAppium1.java";
+				// String destTestPath = System.getProperty("user.dir")
+				// + "app/src/test/java/demo/apps/calculatorApp/calculatorAppUpdatedScripts" +
+				// "CalculatorAppium1"
+				// + "Updated.java";
+				updateFile("CalculatorAppium1.java");
+		// AddScreenshot add = new AddScreenshot();
+		List<String> data = readFile(inputTestPath);
+		writeToFile(data);
+	}
+
+	public static String updateFile(String inputDir) throws IOException {
+		// String inputFileName = StringUtils.substringBetween(inputDir, "(", ".java");
+		File file = new File(inputDir);
+		String inputFilePath = file.getCanonicalPath();
+		System.out.println(inputFilePath);
+
+		System.out.println(FileSystems.getDefault().getPath("CalculatorAppium1.java").toAbsolutePath());
+		// return inputFilePath;
+		// Path path = Paths.get("CalculatorAppium1.java");
+		// System.out.println(path.getParent());
+		// System.out.println(inputFilePath.replace(inputDir, ""));
+		return "";
+
+	}
+
+	public static List<String> readFile(String filePath) throws IOException {
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 			StringBuilder stringBuilder = new StringBuilder();
 			String ls = System.getProperty("line.separator");
 			List<String> fileData = new ArrayList<String>();
@@ -74,12 +91,12 @@ public class AddScreenshot {
 		}
 	}
 
-	public static void writeFile(List<String> fileData) throws IOException, InterruptedException {
+	public static void writeToFile(List<String> fileData) throws IOException, InterruptedException {
 		String destination = updatedFolderPath + destFile + ".java";
 		String textFile = destSikuliFolder + "\\" + inputFile + "sikuli.txt";
 
 		new File(destSikuliFolder).mkdirs();
-		int count = 0;
+		// int count = 0;
 
 		while (elementList.remove(null)) {
 		}
@@ -90,8 +107,8 @@ public class AddScreenshot {
 			System.out.println(elementArray[i]);
 		}
 
-		List<String> location = new ArrayList();
-		List<String> driverLineList = new ArrayList();
+		List<String> location = new ArrayList<String>();
+		List<String> driverLineList = new ArrayList<String>();
 		int j = 0, k = 0;
 		// add lines to location list.
 		for (int i = 0; i < fileData.size(); i++) {
@@ -124,7 +141,7 @@ public class AddScreenshot {
 		System.out.println("Number of lines containing driver.find in source file: " + driverLineList.size());
 
 		String[] driverLine = driverLineList.toArray(new String[driverLineList.size()]);
-		List<String> finalList = new ArrayList();
+		List<String> finalList = new ArrayList<String>();
 		j = 0;
 		k = 0;
 		for (int m = 0; m < location.size(); m++) {
@@ -138,7 +155,7 @@ public class AddScreenshot {
 			}
 		}
 
-		List<String> counted = new ArrayList();
+		List<String> counted = new ArrayList<String>();
 		for (int c = 0; c < finalList.size(); c++) {
 			if (finalList.get(c).contains("driver.find")) {
 				if (!finalList.get(c).startsWith("//")) {
@@ -161,7 +178,7 @@ public class AddScreenshot {
 		while (actionList.remove(null)) {
 		}
 
-		List<String> guiList = new ArrayList();
+		List<String> guiList = new ArrayList<String>();
 
 		// String[] actionArray = actionList.toArray(new String[actionList.size()]);
 		System.out.println("action list is below");
@@ -285,7 +302,6 @@ public class AddScreenshot {
 			System.out.println(screenshotLocation.toString());
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 			e.printStackTrace();

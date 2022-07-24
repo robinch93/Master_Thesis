@@ -1,0 +1,7 @@
+click("element0.png")
+click("element1.png")
+click("element2.png")
+click("element3.png")
+click("element4.png")
+click("element5.png")
+exists("9.0")

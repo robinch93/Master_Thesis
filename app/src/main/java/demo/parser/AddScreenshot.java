@@ -1,16 +1,13 @@
 package demo.parser;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -18,7 +15,6 @@ import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 
 import io.appium.java_client.AppiumDriver;
@@ -26,46 +22,61 @@ import io.appium.java_client.MobileElement;
 
 public class AddScreenshot {
 
-	static String inputFile;
-	static String destFile;
-	static String inputFolderPath;
-	static String updatedFolderPath;
-	static String source;
-	static String destSikuliFolder;
-	static File folder;
+	static String cwd = System.getProperty("user.dir");
 
 	static List<String> elementList = new ArrayList<String>();
 	static List<String> actionList = new ArrayList<String>();
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		String inputTestPath = System.getProperty("user.dir")
-				+
-				// "/app/src/test/java/demo/apps/calculatorApp/calculatorAppInputScripts/CalculatorAppium1.java";
-				// String destTestPath = System.getProperty("user.dir")
-				// + "app/src/test/java/demo/apps/calculatorApp/calculatorAppUpdatedScripts" +
-				// "CalculatorAppium1"
-				// + "Updated.java";
-				updateFile("CalculatorAppium1.java");
-		// AddScreenshot add = new AddScreenshot();
-		List<String> data = readFile(inputTestPath);
-		writeToFile(data);
+		String fileName = "CalculatorAppium1.java";
+		List<Object> filepaths = getFilePath(fileName);
+		// System.out.println();
+		List<String> data = readFile(filepaths.get(0).toString());
+		writeToUpdatedScripts(data, fileName, filepaths.get(1).toString(),
+				filepaths.get(2).toString());
+		writeToSikuliFile(filepaths.get(3).toString(), filepaths.get(4).toString());
 	}
 
-	public static String updateFile(String inputDir) throws IOException {
-		// String inputFileName = StringUtils.substringBetween(inputDir, "(", ".java");
-		File file = new File(inputDir);
-		String inputFilePath = file.getCanonicalPath();
-		System.out.println(inputFilePath);
+	public static List<Object> getFilePath(String fileName) throws IOException {
+		String inputFilePath = "";
+		String outputFolderPath = "";
+		String outputFileName = "";
+		String sikuliFolderPath = "";
+		String sikuliFileName = "";
 
-		System.out.println(FileSystems.getDefault().getPath("CalculatorAppium1.java").toAbsolutePath());
-		// return inputFilePath;
-		// Path path = Paths.get("CalculatorAppium1.java");
-		// System.out.println(path.getParent());
-		// System.out.println(inputFilePath.replace(inputDir, ""));
-		return "";
+		if (fileName.contains("Calculator")) {
+			inputFilePath = cwd
+					+ "/app/src/test/java/demo/apps/calculatorApp/calculatorAppInputScripts/";
+			outputFolderPath = cwd
+					+ "/app/src/test/java/demo/apps/calculatorApp/calculatorAppUpdatedScripts/";
+			sikuliFolderPath = cwd
+					+ "/app/src/test/java/demo/apps/calculatorApp/calculatorAppSikuliScripts/";
+		} else if (fileName.contains("Omni")) {
+			inputFilePath = cwd
+					+ "/app/src/test/java/demo/apps/omniNotesApp/omniNotesAppInputScripts/";
+			outputFolderPath = cwd
+					+ "/app/src/test/java/demo/apps/omniNotesApp/omniNotesAppUpdatedScripts/";
+			sikuliFolderPath = cwd
+					+ "/app/src/test/java/demo/apps/calculatorApp/omniAppSikuliScripts/";
+		} else if (fileName.contains("Unit")) {
+			inputFilePath = cwd
+					+ "/app/src/test/java/demo/apps/unitConverterApp/unitConverterAppInputScripts/";
+			outputFolderPath = cwd
+					+ "/app/src/test/java/demo/apps/unitConverterApp/unitConverterAppUpdatedScripts/";
+			sikuliFolderPath = cwd
+					+ "/app/src/test/java/demo/apps/calculatorApp/unitConverterAppSikuliScripts/";
+		} else {
+			System.out.println("No such file exists");
+		}
 
+		inputFilePath = inputFilePath + fileName;
+		outputFileName = fileName.replace(".java", "Updated.java");
+		sikuliFileName = fileName.replace(".java", "sikuli.txt");
+
+		return Arrays.asList(inputFilePath, outputFolderPath, outputFileName, sikuliFolderPath, sikuliFileName);
 	}
 
+	// to read the input file test scripts for different mobile applications
 	public static List<String> readFile(String filePath) throws IOException {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -91,36 +102,41 @@ public class AddScreenshot {
 		}
 	}
 
-	public static void writeToFile(List<String> fileData) throws IOException, InterruptedException {
-		String destination = updatedFolderPath + destFile + ".java";
-		String textFile = destSikuliFolder + "\\" + inputFile + "sikuli.txt";
+	// to write an updated file for each script by adding take screenshot action
+	// after every event
+	// to extract actions from the input script and write them to a sikuli script
+	public static void writeToUpdatedScripts(List<String> fileData, String inputFileName, String updatedFolderPath,
+			String outputFileName)
+			throws IOException, InterruptedException {
 
-		new File(destSikuliFolder).mkdirs();
-		// int count = 0;
+		String destination = updatedFolderPath + outputFileName;
 
 		while (elementList.remove(null)) {
 		}
 
 		String[] elementArray = elementList.toArray(new String[elementList.size()]);
 
-		for (int i = 0; i < elementArray.length; i++) {
-			System.out.println(elementArray[i]);
-		}
-
 		List<String> location = new ArrayList<String>();
 		List<String> driverLineList = new ArrayList<String>();
 		int j = 0, k = 0;
+		System.out.println(fileData.get(1).length());
+		System.out.println(fileData.get(1).getClass());
+		int first_empty_line = fileData.indexOf("");
 		// add lines to location list.
 		for (int i = 0; i < fileData.size(); i++) {
 			location.add(fileData.get(i));
 
-			if (fileData.get(i).contains("public class " + inputFile)) {
-				location.set(i, "public class " + destFile + " {");
+			if (fileData.get(i).contains("public class " + inputFileName.replace(".java", ""))) {
+				location.set(i, "public class " + outputFileName.replace(".java", "") + " {");
 			}
 
 			if (fileData.get(i).contains("package ")) {
-				location.set(i, fileData.get(i).toString().replace(";", "") + "Updated;");
+				location.set(i, fileData.get(i).toString().replace("Input", "Updated"));
 			}
+
+			// if (i == first_empty_line) {
+			// location.set(i, "import demo.parser.AddScreenshot;");
+			// }
 
 			if (fileData.get(i).contains("driver.find")) {
 				if (!fileData.get(i).startsWith("//")) {
@@ -138,7 +154,8 @@ public class AddScreenshot {
 			}
 		}
 
-		System.out.println("Number of lines containing driver.find in source file: " + driverLineList.size());
+		// System.out.println("Number of lines containing driver.find in source file: "
+		// + driverLineList.size());
 
 		String[] driverLine = driverLineList.toArray(new String[driverLineList.size()]);
 		List<String> finalList = new ArrayList<String>();
@@ -146,6 +163,11 @@ public class AddScreenshot {
 		k = 0;
 		for (int m = 0; m < location.size(); m++) {
 			finalList.add(location.get(m));
+
+			if (location.get(m).contains("package")) {
+				finalList.add(m + 1, "import demo.parser.AddScreenshot;");
+			}
+
 			if (location.get(m).contains("AddScreenshot")) {
 				for (j = k; j < driverLine.length; j++) {
 					finalList.add(driverLine[j] + "\n");
@@ -165,7 +187,8 @@ public class AddScreenshot {
 			// System.out.println(finalList.get(c));
 		}
 
-		System.out.println("Number of lines containing driver.find in destination file: " + counted.size());
+		// System.out.println("Number of lines containing driver.find in destination
+		// file: " + counted.size());
 
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(destination))) {
 			for (String str : finalList) {
@@ -175,13 +198,19 @@ public class AddScreenshot {
 			}
 		}
 
+	}
+
+	public static void writeToSikuliFile(String sikuliFolderPath, String sikuliFileName)
+			throws IOException, InterruptedException {
+
+		String textFile = sikuliFolderPath + sikuliFileName;
+
+		new File(sikuliFolderPath).mkdirs();
+
 		while (actionList.remove(null)) {
 		}
 
 		List<String> guiList = new ArrayList<String>();
-
-		// String[] actionArray = actionList.toArray(new String[actionList.size()]);
-		System.out.println("action list is below");
 
 		for (int i = 0; i < actionList.size(); i++) {
 			guiList.add(actionList.get(i));
@@ -197,11 +226,9 @@ public class AddScreenshot {
 			}
 		}
 
-		for (int i = 0; i < guiList.size(); i++) {
-			System.out.println(guiList.get(i));
-		}
-
-		// System.out.println("action list has elements: " + actionArray.length);
+		// for (int i = 0; i < guiList.size(); i++) {
+		// System.out.println(guiList.get(i));
+		// }
 
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(textFile))) {
 			for (String str : guiList) {

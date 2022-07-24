@@ -28,11 +28,11 @@ public class AddScreenshot {
 	static List<String> actionList = new ArrayList<String>();
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		String fileName = "CalculatorAppium1.java";
+		String fileName = "CalculatorAppium1";
 		List<Object> filepaths = getFilePath(fileName);
 		// System.out.println();
 		List<String> data = readFile(filepaths.get(0).toString());
-		writeToUpdatedScripts(data, fileName, filepaths.get(1).toString(),
+		writeToUpdatedScripts(data, fileName + ".java", filepaths.get(1).toString(),
 				filepaths.get(2).toString());
 		writeToSikuliFile(filepaths.get(3).toString(), filepaths.get(4).toString());
 	}
@@ -69,9 +69,10 @@ public class AddScreenshot {
 			System.out.println("No such file exists");
 		}
 
-		inputFilePath = inputFilePath + fileName;
-		outputFileName = fileName.replace(".java", "Updated.java");
-		sikuliFileName = fileName.replace(".java", "sikuli.txt");
+		inputFilePath = inputFilePath + fileName + ".java";
+		outputFileName = fileName + "Updated.java";
+		sikuliFolderPath = sikuliFolderPath + fileName + ".sikuli";
+		sikuliFileName = fileName + "sikuli.txt";
 
 		return Arrays.asList(inputFilePath, outputFolderPath, outputFileName, sikuliFolderPath, sikuliFileName);
 	}
@@ -121,7 +122,7 @@ public class AddScreenshot {
 		int j = 0, k = 0;
 		System.out.println(fileData.get(1).length());
 		System.out.println(fileData.get(1).getClass());
-		int first_empty_line = fileData.indexOf("");
+
 		// add lines to location list.
 		for (int i = 0; i < fileData.size(); i++) {
 			location.add(fileData.get(i));
@@ -144,7 +145,9 @@ public class AddScreenshot {
 					for (j = k; j < elementArray.length; j++) {
 
 						location.add("\t\tMobileElement " + "element" + k + " = " + "driver.find" + elementArray[j]
-								+ ");" + "\n" + "\t\tAddScreenshot.elementScreenshot(driver," + " element" + k + " ,"
+								+ ");" + "\n" + "\t\tAddScreenshot.elementScreenshot("
+								+ inputFileName.replace(".java", "") + ", driver," + " element" + k
+								+ " ,"
 								+ " \"element" + k + "\");");
 						location.remove(i);
 						k++;
@@ -203,7 +206,7 @@ public class AddScreenshot {
 	public static void writeToSikuliFile(String sikuliFolderPath, String sikuliFileName)
 			throws IOException, InterruptedException {
 
-		String textFile = sikuliFolderPath + sikuliFileName;
+		String textFile = sikuliFolderPath + "/" + sikuliFileName;
 
 		new File(sikuliFolderPath).mkdirs();
 
@@ -295,9 +298,12 @@ public class AddScreenshot {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static String elementScreenshot(AppiumDriver driver, MobileElement ele, String imageName)
-			throws InterruptedException {
-		Thread.sleep(200);
+	public static String elementScreenshot(String inputFileName, AppiumDriver driver, MobileElement ele,
+			String imageName)
+			throws InterruptedException, IOException {
+
+		List<Object> filepaths = getFilePath(inputFileName);
+		String destSikuliFolder = filepaths.get(3).toString().replace(".java", "");
 		File screenshotLocation = null;
 		try {
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

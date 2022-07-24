@@ -36,7 +36,7 @@ dependencies {
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'xalan:xalan:2.7.2'
-    
+    implementation 'info.picocli:picocli:4.6.3'
 
 }
 

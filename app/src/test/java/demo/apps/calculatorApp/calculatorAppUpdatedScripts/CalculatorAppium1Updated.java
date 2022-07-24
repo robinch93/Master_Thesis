@@ -30,43 +30,43 @@ public class CalculatorAppium1Updated {
 		Thread.sleep(3000);
 
 		MobileElement element0 = driver.findElementById("anubhav.calculatorapp:id/button1");
-		AddScreenshot.elementScreenshot(driver, element0 , "element0");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element0 , "element0");
 		driver.findElementById("anubhav.calculatorapp:id/button1").click();
 
 
 		Thread.sleep(1000);
 		MobileElement element1 = driver.findElementById("anubhav.calculatorapp:id/clear");
-		AddScreenshot.elementScreenshot(driver, element1 , "element1");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element1 , "element1");
 		driver.findElementById("anubhav.calculatorapp:id/clear").click();
 
 
 		Thread.sleep(200);
 		MobileElement element2 = driver.findElementById("anubhav.calculatorapp:id/num5");
-		AddScreenshot.elementScreenshot(driver, element2 , "element2");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element2 , "element2");
 		driver.findElementById("anubhav.calculatorapp:id/num5").click();
 
 
 		Thread.sleep(200);
 		MobileElement element3 = driver.findElementById("anubhav.calculatorapp:id/plus");
-		AddScreenshot.elementScreenshot(driver, element3 , "element3");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element3 , "element3");
 		driver.findElementById("anubhav.calculatorapp:id/plus").click();
 
 		
 		Thread.sleep(200);
 		MobileElement element4 = driver.findElementById("anubhav.calculatorapp:id/num4");
-		AddScreenshot.elementScreenshot(driver, element4 , "element4");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element4 , "element4");
 		driver.findElementById("anubhav.calculatorapp:id/num4").click();
 
 
 		Thread.sleep(200);
 		MobileElement element5 = driver.findElementById("anubhav.calculatorapp:id/equal");
-		AddScreenshot.elementScreenshot(driver, element5 , "element5");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element5 , "element5");
 		driver.findElementById("anubhav.calculatorapp:id/equal").click();
 
 		
 		Thread.sleep(200);
 		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'9.0')]");
-		AddScreenshot.elementScreenshot(driver, element6 , "element6");
+		AddScreenshot.elementScreenshot(CalculatorAppium1, driver, element6 , "element6");
 		assertTrue(driver.findElementByXPath("//*[contains(@text,'9.0')]").isDisplayed());
 
 

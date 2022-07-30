@@ -1,5 +1,6 @@
 package demo.apps.omniNotesApp.omniNotesAppInputScripts;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -11,7 +12,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class OmniNotesAppium8 {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException  {
 
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();

@@ -1,13 +1,14 @@
 package demo.apps.unitConverterApp.unitConverterAppUpdatedScripts;
+import demo.parser.AddScreenshot;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import demo.parser.AddScreenshot;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AutomationName;
@@ -15,7 +16,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class UnitConverterAppium3Updated {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException  {
 
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();
@@ -34,49 +35,56 @@ public class UnitConverterAppium3Updated {
 		Thread.sleep(3000);
 
 		MobileElement element0 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerCategory");
-		AddScreenshot.elementScreenshot(driver, element0, "element0");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element0 , "element0");
 		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerCategory").click();
+
 
 		Thread.sleep(1000);
 		MobileElement element1 = driver.findElementByXPath("//*[contains(@text,'Distance')]");
-		AddScreenshot.elementScreenshot(driver, element1, "element1");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element1 , "element1");
 		driver.findElementByXPath("//*[contains(@text,'Distance')]").click();
+
 
 		Thread.sleep(200);
 		MobileElement element2 = driver.findElementById("com.rcarvalho.unitconverter:id/input");
-		AddScreenshot.elementScreenshot(driver, element2, "element2");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element2 , "element2");
 		driver.findElementById("com.rcarvalho.unitconverter:id/input").sendKeys("1");
+
 		;
 
 		Thread.sleep(200);
 		MobileElement element3 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsBase");
-		AddScreenshot.elementScreenshot(driver, element3, "element3");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element3 , "element3");
 		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsBase").click();
+
 
 		Thread.sleep(1000);
 		MobileElement element4 = driver.findElementByXPath("//*[contains(@text,'Yard')]");
-		AddScreenshot.elementScreenshot(driver, element4, "element4");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element4 , "element4");
 		driver.findElementByXPath("//*[contains(@text,'Yard')]").click();
+
 
 		Thread.sleep(200);
 		MobileElement element5 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsResult");
-		AddScreenshot.elementScreenshot(driver, element5, "element5");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element5 , "element5");
 		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsResult").click();
+
 
 		Thread.sleep(1000);
 		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'Feet')]");
-		AddScreenshot.elementScreenshot(driver, element6, "element6");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element6 , "element6");
 		driver.findElementByXPath("//*[contains(@text,'Feet')]").click();
+
 
 		Thread.sleep(200);
 		MobileElement element7 = driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert");
-		AddScreenshot.elementScreenshot(driver, element7, "element7");
+		AddScreenshot.elementScreenshot("UnitConverterAppium3", driver, element7 , "element7");
 		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
 
+
 		Thread.sleep(1000);
-		MobileElement element8 = driver.findElementByXPath("//*[contains(@text,'1 Yard is equal to 3 Feet')]");
-		AddScreenshot.elementScreenshot(driver, element8, "element8");
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Yard is equal to 3 Feet')]").isDisplayed());
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Yard is equal "
+				+ "to 3 Feet')]").isDisplayed());
 
 	}
 

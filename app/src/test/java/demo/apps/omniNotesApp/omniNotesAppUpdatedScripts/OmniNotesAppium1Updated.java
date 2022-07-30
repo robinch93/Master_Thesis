@@ -1,13 +1,14 @@
 package demo.apps.omniNotesApp.omniNotesAppUpdatedScripts;
+import demo.parser.AddScreenshot;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import demo.parser.AddScreenshot;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AutomationName;
@@ -15,7 +16,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class OmniNotesAppium1Updated {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException {
 
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();
@@ -34,37 +35,43 @@ public class OmniNotesAppium1Updated {
 		Thread.sleep(3000);
 
 		MobileElement element0 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_expand_menu_button");
-		AddScreenshot.elementScreenshot(driver, element0, "element0");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element0 , "element0");
 		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_expand_menu_button").click();
+
 
 		Thread.sleep(200);
 		MobileElement element1 = driver.findElementById("it.feio.android.omninotes.alpha:id/fab_note");
-		AddScreenshot.elementScreenshot(driver, element1, "element1");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element1 , "element1");
 		driver.findElementById("it.feio.android.omninotes.alpha:id/fab_note").click();
+
 
 		Thread.sleep(200);
 		MobileElement element2 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title");
-		AddScreenshot.elementScreenshot(driver, element2, "element2");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element2 , "element2");
 		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_title").sendKeys("First Note");
+
 
 		Thread.sleep(200);
 		MobileElement element3 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content");
-		AddScreenshot.elementScreenshot(driver, element3, "element3");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element3 , "element3");
 		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content").click();
 
+
 		MobileElement element4 = driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content");
-		AddScreenshot.elementScreenshot(driver, element4, "element4");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element4 , "element4");
 		driver.findElementById("it.feio.android.omninotes.alpha:id/detail_content").sendKeys("this is the first note");
 
-		MobileElement element5 = driver
-				.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]");
-		AddScreenshot.elementScreenshot(driver, element5, "element5");
+
+		MobileElement element5 = driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element5 , "element5");
 		driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]").click();
+
 
 		Thread.sleep(500);
 		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'this is the first note')]");
-		AddScreenshot.elementScreenshot(driver, element6, "element6");
+		AddScreenshot.elementScreenshot("OmniNotesAppium1", driver, element6 , "element6");
 		assertTrue(driver.findElementByXPath("//*[contains(@text,'this is the first note')]").isDisplayed());
+
 
 	}
 

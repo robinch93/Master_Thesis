@@ -1,13 +1,14 @@
 package demo.apps.calculatorApp.calculatorAppUpdatedScripts;
+import demo.parser.AddScreenshot;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import demo.parser.AddScreenshot;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AutomationName;
@@ -15,7 +16,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class CalculatorAppium10Updated {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException {
 
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();
@@ -34,38 +35,45 @@ public class CalculatorAppium10Updated {
 		Thread.sleep(3000);
 
 		MobileElement element0 = driver.findElementById("anubhav.calculatorapp:id/button");
-		AddScreenshot.elementScreenshot(driver, element0, "element0");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element0 , "element0");
 		driver.findElementById("anubhav.calculatorapp:id/button").click();
 
-		Thread.sleep(1500);
+
+		Thread.sleep(1000);
 		MobileElement element1 = driver.findElementById("anubhav.calculatorapp:id/clear");
-		AddScreenshot.elementScreenshot(driver, element1, "element1");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element1 , "element1");
 		driver.findElementById("anubhav.calculatorapp:id/clear").click();
+
 
 		Thread.sleep(200);
 		MobileElement element2 = driver.findElementById("anubhav.calculatorapp:id/toggle");
-		AddScreenshot.elementScreenshot(driver, element2, "element2");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element2 , "element2");
 		driver.findElementById("anubhav.calculatorapp:id/toggle").click();
+
 
 		Thread.sleep(200);
 		MobileElement element3 = driver.findElementById("anubhav.calculatorapp:id/num2");
-		AddScreenshot.elementScreenshot(driver, element3, "element3");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element3 , "element3");
 		driver.findElementById("anubhav.calculatorapp:id/num2").click();
+
 
 		Thread.sleep(200);
 		MobileElement element4 = driver.findElementById("anubhav.calculatorapp:id/xpowy");
-		AddScreenshot.elementScreenshot(driver, element4, "element4");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element4 , "element4");
 		driver.findElementById("anubhav.calculatorapp:id/xpowy").click();
+
 
 		Thread.sleep(200);
 		MobileElement element5 = driver.findElementById("anubhav.calculatorapp:id/equal");
-		AddScreenshot.elementScreenshot(driver, element5, "element5");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element5 , "element5");
 		driver.findElementById("anubhav.calculatorapp:id/equal").click();
+
 
 		Thread.sleep(200);
 		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'100.0')]");
-		AddScreenshot.elementScreenshot(driver, element6, "element6");
+		AddScreenshot.elementScreenshot("CalculatorAppium10", driver, element6 , "element6");
 		assertTrue(driver.findElementByXPath("//*[contains(@text,'100.0')]").isDisplayed());
+
 
 	}
 

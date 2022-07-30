@@ -1,17 +1,21 @@
 package demo.apps.calculatorApp.calculatorAppInputScripts;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorAppium1 {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException {
 
 		DesiredCapabilities dc = new DesiredCapabilities();
 
@@ -22,7 +26,7 @@ public class CalculatorAppium1 {
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
 		dc.setCapability(MobileCapabilityType.APP,
 				"E:\\CalculatorApp\\app\\build\\outputs\\apk\\app-debug.apk");
-		
+
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, dc);
@@ -38,16 +42,16 @@ public class CalculatorAppium1 {
 
 		Thread.sleep(200);
 		driver.findElementById("anubhav.calculatorapp:id/plus").click();
-		
+
 		Thread.sleep(200);
 		driver.findElementById("anubhav.calculatorapp:id/num4").click();
 
 		Thread.sleep(200);
 		driver.findElementById("anubhav.calculatorapp:id/equal").click();
-		
+
 		Thread.sleep(200);
 		assertTrue(driver.findElementByXPath("//*[contains(@text,'9.0')]").isDisplayed());
 
-	} 
+	}
 
 }

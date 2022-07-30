@@ -14,8 +14,15 @@ plugins {
     id 'java'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'demo.parser.AddScreenshot'
+        )
+    }
+}
+
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
@@ -37,7 +44,11 @@ dependencies {
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'xalan:xalan:2.7.2'
     implementation 'info.picocli:picocli:4.6.3'
+    implementation 'info.picocli:picocli-codegen:4.6.3'
+}
 
+configurations {
+    implementation
 }
 
 application {
@@ -49,6 +60,12 @@ application {
 //     // Use TestNG for unit tests.
 //     useTestNG()
 // }
+
+task printLocations {
+    doLast    {
+    configurations.implementation.files.each { println it }
+    }
+} 
 
 test{
   useTestNG()

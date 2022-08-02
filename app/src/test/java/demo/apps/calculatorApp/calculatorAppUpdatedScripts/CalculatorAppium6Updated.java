@@ -9,66 +9,52 @@ import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import demo.parser.Globals;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class CalculatorAppium6Updated {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException  {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException {
 
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();
 
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, 9.0);
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
-		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
-		dc.setCapability(MobileCapabilityType.APP,
-				"E:\\CalculatorApp\\app\\build\\outputs\\apk\\app-debug.apk");
-		
+		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel4");
+		dc.setCapability(MobileCapabilityType.APP, Globals.cwd + "/apks/calculator.apk");
+
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, dc);
 		Thread.sleep(3000);
 
-		MobileElement element0 = driver.findElementById("anubhav.calculatorapp:id/button1");
+		MobileElement element0 = driver.findElementById("com.google.android.calculator:id/op_sqrt");
 		AddScreenshot.elementScreenshot("CalculatorAppium6", driver, element0 , "element0");
-		driver.findElementById("anubhav.calculatorapp:id/button1").click();
+		driver.findElementById("com.google.android.calculator:id/op_sqrt").click();
 
 
-		Thread.sleep(1000);
-		MobileElement element1 = driver.findElementById("anubhav.calculatorapp:id/clear");
+		Thread.sleep(200);
+		MobileElement element1 = driver.findElementById("com.google.android.calculator:id/digit_9");
 		AddScreenshot.elementScreenshot("CalculatorAppium6", driver, element1 , "element1");
-		driver.findElementById("anubhav.calculatorapp:id/clear").click();
+		driver.findElementById("com.google.android.calculator:id/digit_9").click();
 
 
 		Thread.sleep(200);
-		MobileElement element2 = driver.findElementById("anubhav.calculatorapp:id/num4");
+		MobileElement element2 = driver.findElementById("com.google.android.calculator:id/eq");
 		AddScreenshot.elementScreenshot("CalculatorAppium6", driver, element2 , "element2");
-		driver.findElementById("anubhav.calculatorapp:id/num4").click();
+		driver.findElementById("com.google.android.calculator:id/eq").click();
 
 
 		Thread.sleep(200);
-		MobileElement element3 = driver.findElementById("anubhav.calculatorapp:id/sqrt");
+		MobileElement element3 = driver.findElementByXPath("//*[contains(@text,'3')]");
 		AddScreenshot.elementScreenshot("CalculatorAppium6", driver, element3 , "element3");
-		driver.findElementById("anubhav.calculatorapp:id/sqrt").click();
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'3')]").isDisplayed());
 
 
-		Thread.sleep(200);
-		MobileElement element4 = driver.findElementById("anubhav.calculatorapp:id/equal");
-		AddScreenshot.elementScreenshot("CalculatorAppium6", driver, element4 , "element4");
-		driver.findElementById("anubhav.calculatorapp:id/equal").click();
-
-		
-		Thread.sleep(200);
-		MobileElement element5 = driver.findElementByXPath("//*[contains(@text,'2.0')]");
-		AddScreenshot.elementScreenshot("CalculatorAppium6", driver, element5 , "element5");
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'2.0')]").isDisplayed());
-
-
-	} 
+	}
 
 }

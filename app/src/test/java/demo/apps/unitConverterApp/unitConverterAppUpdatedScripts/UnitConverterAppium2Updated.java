@@ -9,82 +9,67 @@ import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import demo.parser.Globals;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class UnitConverterAppium2Updated {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException  {
+	public static void main(String[] args) throws MalformedURLException, InterruptedException, IOException {
 
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();
 
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, 9.0);
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
-		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
-		dc.setCapability(MobileCapabilityType.APP,
-				"E:\\AndroidSimpleUnitConverter\\app\\build\\outputs\\apk\\debug\\app-debug.apk");
+		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel4");
+		dc.setCapability(MobileCapabilityType.APP, Globals.cwd + "/apks/unit-converter.apk");
 
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, dc);
 		Thread.sleep(3000);
 
-		MobileElement element0 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerCategory");
+		MobileElement element0 = driver.findElementByXPath("//android.widget.TextView[@text='Length']");
 		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element0 , "element0");
-		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerCategory").click();
+		driver.findElementByXPath("//android.widget.TextView[@text='Length']").click();
 
 
-		Thread.sleep(1000);
-		MobileElement element1 = driver.findElementByXPath("//*[contains(@text,'Weight')]");
+		Thread.sleep(200);
+		MobileElement element1 = driver.findElementById("com.androidapps.unitconverter:id/chip_to_unit_name");
 		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element1 , "element1");
-		driver.findElementByXPath("//*[contains(@text,'Weight')]").click();
+		driver.findElementById("com.androidapps.unitconverter:id/chip_to_unit_name").click();
 
 
 		Thread.sleep(200);
-		MobileElement element2 = driver.findElementById("com.rcarvalho.unitconverter:id/input");
+		MobileElement element2 = driver.findElementByXPath("//android.widget.TextView[@text='meter']");
 		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element2 , "element2");
-		driver.findElementById("com.rcarvalho.unitconverter:id/input").sendKeys("1");
+		driver.findElementByXPath("//android.widget.TextView[@text='meter']").click();
 
-		;
 
 		Thread.sleep(200);
-		MobileElement element3 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsBase");
+		MobileElement element3 = driver.findElementById("com.androidapps.unitconverter:id/bt_simple_units_view");
 		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element3 , "element3");
-		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsBase").click();
+		driver.findElementById("com.androidapps.unitconverter:id/bt_simple_units_view").click();
 
 
-		Thread.sleep(1000);
-		MobileElement element4 = driver.findElementByXPath("//*[contains(@text,'Grains')]");
+		Thread.sleep(200);
+		MobileElement element4 = driver.findElementById("com.androidapps.unitconverter:id/et_from_unit_val");
 		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element4 , "element4");
-		driver.findElementByXPath("//*[contains(@text,'Grains')]").click();
+		driver.findElementById("com.androidapps.unitconverter:id/et_from_unit_val").clear();
 
-
-		Thread.sleep(200);
-		MobileElement element5 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsResult");
+		MobileElement element5 = driver.findElementById("com.androidapps.unitconverter:id/et_from_unit_val");
 		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element5 , "element5");
-		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsResult").click();
-
-
-		Thread.sleep(1000);
-		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'Kilograms')]");
-		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element6 , "element6");
-		driver.findElementByXPath("//*[contains(@text,'Kilograms')]").click();
+		driver.findElementById("com.androidapps.unitconverter:id/et_from_unit_val").sendKeys("0.5");
 
 
 		Thread.sleep(200);
-		MobileElement element7 = driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert");
-		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element7 , "element7");
-		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
+		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'500.000')]");
+		AddScreenshot.elementScreenshot("UnitConverterAppium2", driver, element6 , "element6");
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'500.000')]").isDisplayed());
 
-
-		Thread.sleep(1500);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Grains is equal to "
-				+ "0.0001 Kilograms')]").isDisplayed());
 
 	}
 

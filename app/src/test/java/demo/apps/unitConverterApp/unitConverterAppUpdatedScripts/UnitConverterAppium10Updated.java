@@ -9,9 +9,9 @@ import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import demo.parser.Globals;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class UnitConverterAppium10Updated {
@@ -23,68 +23,43 @@ public class UnitConverterAppium10Updated {
 
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, 9.0);
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
-		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
-		dc.setCapability(MobileCapabilityType.APP,
-				"E:\\AndroidSimpleUnitConverter\\app\\build\\outputs\\apk\\debug\\app-debug.apk");
+		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel4");
+		dc.setCapability(MobileCapabilityType.APP, Globals.cwd + "/apks/unit-converter.apk");
 
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, dc);
 		Thread.sleep(3000);
 
-		MobileElement element0 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerCategory");
+		MobileElement element0 = driver.findElementByXPath("//android.widget.TextView[@text='Angle']");
 		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element0 , "element0");
-		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerCategory").click();
+		driver.findElementByXPath("//android.widget.TextView[@text='Angle']").click();
 
 
-		Thread.sleep(1000);
-		MobileElement element1 = driver.findElementByXPath("//*[contains(@text,'Temperature')]");
+		Thread.sleep(200);
+		MobileElement element1 = driver.findElementById("com.androidapps.unitconverter:id/chip_to_unit_name");
 		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element1 , "element1");
-		driver.findElementByXPath("//*[contains(@text,'Temperature')]").click();
+		driver.findElementById("com.androidapps.unitconverter:id/chip_to_unit_name").click();
 
 
-		Thread.sleep(500);
-		MobileElement element2 = driver.findElementById("com.rcarvalho.unitconverter:id/input");
+		Thread.sleep(200);
+		MobileElement element2 = driver.findElementByXPath("//android.widget.TextView[@text='Minute']");
 		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element2 , "element2");
-		driver.findElementById("com.rcarvalho.unitconverter:id/input").sendKeys("1");
+		driver.findElementByXPath("//android.widget.TextView[@text='Minute']").click();
 
-		;
 
-		Thread.sleep(500);
-		MobileElement element3 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsBase");
+		Thread.sleep(200);
+		MobileElement element3 = driver.findElementById("com.androidapps.unitconverter:id/bt_simple_units_view");
 		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element3 , "element3");
-		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsBase").click();
+		driver.findElementById("com.androidapps.unitconverter:id/bt_simple_units_view").click();
 
 
-		Thread.sleep(1000);
-		MobileElement element4 = driver.findElementByXPath("//*[contains(@text,'Fahrenheit')]");
+		Thread.sleep(200);
+		MobileElement element4 = driver.findElementByXPath("//*[contains(@text,'60.000')]");
 		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element4 , "element4");
-		driver.findElementByXPath("//*[contains(@text,'Fahrenheit')]").click();
+		assertTrue(driver.findElementByXPath("//*[contains(@text,'60.000')]").isDisplayed());
 
-
-		Thread.sleep(500);
-		MobileElement element5 = driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsResult");
-		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element5 , "element5");
-		driver.findElementById("com.rcarvalho.unitconverter:id/spinnerUnitsResult").click();
-
-
-		Thread.sleep(1000);
-		MobileElement element6 = driver.findElementByXPath("//*[contains(@text,'Celcius')]");
-		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element6 , "element6");
-		driver.findElementByXPath("//*[contains(@text,'Celcius')]").click();
-
-
-		Thread.sleep(500);
-		MobileElement element7 = driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert");
-		AddScreenshot.elementScreenshot("UnitConverterAppium10", driver, element7 , "element7");
-		driver.findElementById("com.rcarvalho.unitconverter:id/btnConvert").click();
-
-
-		Thread.sleep(1000);
-		assertTrue(driver.findElementByXPath("//*[contains(@text,'1 Fahrenheit is equal to "
-				+ "-17.2222 Celcius')]").isDisplayed());
 
 	}
 

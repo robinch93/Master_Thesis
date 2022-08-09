@@ -114,7 +114,7 @@ public class AddScreenshot {
 			throws InterruptedException, IOException {
 
 		List<Object> filepaths = UpdateScript.getFilePath(inputFileName);
-		String destSikuliFolder = filepaths.get(3).toString().replace(".java", "");
+		String destSikuliFolder = filepaths.get(2).toString().replace(".java", "");
 		File screenshotLocation = null;
 		try {
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -122,11 +122,11 @@ public class AddScreenshot {
 			BufferedImage fullImg = ImageIO.read(scrFile);
 			// Get the location of element on the page
 			Point point = ele.getLocation();
-			System.out.println(point);
+			// System.out.println(point);
 			int eleWidth = ele.getSize().getWidth();
 			int eleHeight = ele.getSize().getHeight();
 
-			System.out.println(eleWidth + "and" + eleHeight);
+			// System.out.println(eleWidth + "and" + eleHeight);
 			// Crop the entire page screenshot to get only element screenshot
 			BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
 
@@ -139,11 +139,11 @@ public class AddScreenshot {
 
 			ImageIO.write(eleScreenshot, "png", scrFile);
 
-			String path = destSikuliFolder + "\\" + imageName + "" + ".png";
+			String path = destSikuliFolder + "/" + imageName + "" + ".png";
 			screenshotLocation = new File(path);
 			FileUtils.copyFile(scrFile, screenshotLocation);
 
-			System.out.println(screenshotLocation.toString());
+			// System.out.println(screenshotLocation.toString());
 
 		} catch (IOException e) {
 			e.printStackTrace();

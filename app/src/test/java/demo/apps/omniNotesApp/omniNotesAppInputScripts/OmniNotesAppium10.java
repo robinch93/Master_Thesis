@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -20,28 +21,27 @@ public class OmniNotesAppium10 {
 		// Created object of DesiredCapabilities class.
 		DesiredCapabilities dc = new DesiredCapabilities();
 
-		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
-		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel4");
+		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, Globals.AUTOMATION_NAME);
+		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, Globals.PLATFORM_NAME);
+		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, Globals.PLATFORM_VERSION);
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, Globals.DEVICE_NAME);
 		dc.setCapability(MobileCapabilityType.APP, Globals.cwd + "/apks/omni-notes.apk");
+		dc.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "3000");
 
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, dc);
-		Thread.sleep(3000);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 		driver.findElementById("it.feio.android.omninotes.foss:id/fab_expand_menu_button").click();
 
-		Thread.sleep(200);
 		driver.findElementById("it.feio.android.omninotes.foss:id/fab_note").click();
 
-		Thread.sleep(200);
 		driver.findElementById("it.feio.android.omninotes.foss:id/detail_title").sendKeys("First Note");
 
 		driver.findElementByXPath("//android.widget.ImageButton[@content-desc=\"drawer open\"]").click();
 
-		Thread.sleep(200);
+		Thread.sleep(100);
 		assertTrue(driver.findElementByXPath("//*[contains(@text,'First Note')]").isDisplayed());
 
 	}

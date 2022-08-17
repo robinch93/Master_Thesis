@@ -27,24 +27,19 @@ repositories {
 }
 
 dependencies {  
-    // implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
-    // implementation 'org.seleniumhq.selenium:selenium-server:4.0.0-alpha-2'
-    // implementation 'org.seleniumhq.selenium:selenium-remote-driver:4.3.0'
     implementation 'org.seleniumhq.selenium:selenium-api:3.141.59'
     implementation 'io.appium:java-client:7.6.0'
-    // implementation 'org.seleniumhq.selenium:selenium-support:4.3.0'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
-    // testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0-M1'
     testImplementation 'org.testng:testng:7.6.1'
     implementation 'org.codehaus.castor:castor:1.4.1'
-    // implementation 'org.apache.poi:poi:5.2.2'
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'xalan:xalan:2.7.2'
     implementation 'info.picocli:picocli:4.6.3'
     implementation 'info.picocli:picocli-codegen:4.6.3'
+    implementation 'io.github.cdimascio:dotenv-kotlin:6.2.2'
 }
 
 configurations {

@@ -21,3 +21,13 @@ All the test scripts were run through Sikuli tool for three apps (10 test script
 Using below link you can see the presentation file for better understanding of the project. 
 
 [Thesis_ppt](https://1drv.ms/p/s!Am3ut3u_p6QTiinZt5ueTKp9Ce0Z?e=Jk3zS2)
+
+***How To Run*** 
+
+**Run on Local**
+1. Prerequisites:  [Java](https://www.oracle.com/java/technologies/downloads/), [Gradle](https://gradle.org/releases/), [Appium](https://appium.io/downloads.html), [Android Emulator](https://www.alphr.com/run-android-emulator/), [Sikuli](https://raiman.github.io/SikuliX1/downloads.html)
+2. Run `gradle build`
+3. Run [UpdateScript.java](https://github.com/robinch93/Master_Thesis/blob/master/app/src/main/java/demo/parser/UpdateScript.java) file to update scripts of any of the three applications. 
+4. Run updated script files for the applictions under corresponding folders ([Calculator](https://github.com/robinch93/Master_Thesis/tree/master/app/src/test/java/demo/apps/calculatorApp/calculatorAppUpdatedScripts), [omni notes](https://github.com/robinch93/Master_Thesis/tree/master/app/src/test/java/demo/apps/omniNotesApp/omniNotesAppUpdatedScripts), [unit converter](https://github.com/robinch93/Master_Thesis/tree/master/app/src/test/java/demo/apps/unitConverterApp/unitConverterAppUpdatedScripts)) 
+5. Screenshots for the elements are saved in corresponding folders for the app ([Calculator](https://github.com/robinch93/Master_Thesis/tree/master/app/src/test/java/demo/apps/calculatorApp/calculatorAppSikuliScripts), [omni notes](https://github.com/robinch93/Master_Thesis/tree/master/app/src/test/java/demo/apps/omniNotesApp/omniAppSikuliScripts), [unit converter](https://github.com/robinch93/Master_Thesis/tree/master/app/src/test/java/demo/apps/unitConverterApp/unitConverterAppSikuliScripts)) 
+6. Run sikuli scripts using Sikuli IDE to verify if transition of scripts to GUI was done successfully. 

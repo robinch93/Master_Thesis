@@ -88,8 +88,9 @@ public class AddScreenshot {
 	}
 
 	public static String actionType(String lineCode) {
-		String act = StringUtils.substringBetween(lineCode, ").", "(");
+
 		if (lineCode.contains("driver.find")) {
+			String act = StringUtils.substringBetween(lineCode, ").", "(");
 			if (act.length() != 0) {
 				if (act.equals("sendKeys")) {
 					String text = "";
@@ -105,7 +106,7 @@ public class AddScreenshot {
 			}
 		}
 
-		return act;
+		return null;
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -10,4 +10,9 @@ public class Globals {
     static LocalDateTime now = LocalDateTime.now();
     public static String timeNow = dtf.format(now);
 
+    public static String AUTOMATION_NAME = "Appium";
+    public static String PLATFORM_NAME = "Android";
+    public static String PLATFORM_VERSION = "13";
+    public static String DEVICE_NAME = "pixel4";
+
 }

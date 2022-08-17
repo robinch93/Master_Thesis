@@ -33,7 +33,7 @@ public class Write {
 
         List<String> location = new ArrayList<String>();
         List<String> driverLineList = new ArrayList<String>();
-        int j = 0, k = 0;
+        int n = 1, m = 0;
 
         String fileName = inputFileName.replace(".java", "");
 
@@ -50,35 +50,32 @@ public class Write {
             }
 
             if (fileData.get(i).contains("driver.find")) {
-                if (!fileData.get(i).startsWith("//")) {
+                if (!fileData.get(i).contains("sendKeys") && !fileData.get(i).contains("clear")
+                        && !fileData.get(i).startsWith("//")) {
                     driverLineList.add(fileData.get(i));
-                    for (j = k; j < elementArray.length; j++) {
-
-                        location.add("\t\tMobileElement " + "element" + k + " = " + "driver.find" + elementArray[j]
-                                + ");" + "\n" + "\t\tAddScreenshot.elementScreenshot(\"" + fileName + "\", driver,"
-                                + " element" + k
-                                + " ,"
-                                + " \"element" + k + "\");");
-                        location.remove(i);
-                        k++;
-                        break;
-                    }
+                    location.add("\t\tMobileElement " + "element" + n + " = " + "driver.find" + elementArray[m]
+                            + ");" + "\n" + "\t\tAddScreenshot.elementScreenshot(\"" + fileName + "\", driver,"
+                            + " element" + n
+                            + " ,"
+                            + " \"element" + n + "\");");
+                    location.remove(i);
+                    n++;
                 }
+                m++;
             }
         }
 
         String[] driverLine = driverLineList.toArray(new String[driverLineList.size()]);
         List<String> finalList = new ArrayList<String>();
-        j = 0;
-        k = 0;
-        for (int m = 0; m < location.size(); m++) {
-            finalList.add(location.get(m));
+        int j = 0, k = 0;
+        for (int f = 0; f < location.size(); f++) {
+            finalList.add(location.get(f));
 
-            if (location.get(m).contains("package")) {
-                finalList.add(m + 1, "import demo.parser.AddScreenshot;");
+            if (location.get(f).contains("package")) {
+                finalList.add(f + 1, "import demo.parser.AddScreenshot;");
             }
 
-            if (location.get(m).contains("AddScreenshot")) {
+            if (location.get(f).contains("AddScreenshot")) {
                 for (j = k; j < driverLine.length; j++) {
                     finalList.add(driverLine[j] + "\n");
                     k++;
@@ -113,7 +110,7 @@ public class Write {
 
         // System.out.println(sikuliFolderPath);
         CreateDirectory(sikuliFolderPath);
-        String sikuliFileName = inputFileName.replace(".java", "") + "sikuli.txt";
+        String sikuliFileName = inputFileName.replace(".java", "") + "sikuli.py";
         String textFile = sikuliFolderPath + "/" + sikuliFileName;
 
         new File(sikuliFolderPath).mkdirs();
@@ -122,18 +119,21 @@ public class Write {
         }
 
         List<String> guiList = new ArrayList<String>();
-
+        int j = 1;
         for (int i = 0; i < actionList.size(); i++) {
             guiList.add(actionList.get(i));
             String action = actionList.get(i).toString();
             if (action.contains("click")) {
-                guiList.set(i, "click(\"element" + i + ".png\")");
+                guiList.set(i, "click(\"element" + j + ".png\")");
+                j++;
             } else if (action.contains("sendKeys")) {
                 String update = action.replace("sendKeys ", "");
                 guiList.set(i, "type(\"" + update + "\")");
             } else if (action.contains("isDisplayed")) {
-                guiList.set(i, "exists(\"element" + i + ".png\")");
-
+                guiList.set(i, "exists(\"element" + j + ".png\")");
+                j++;
+            } else if (action.contains("clear")) {
+                guiList.set(i, "type('a',Key.CMD) \ntype(Key.DELETE)");
             }
         }
 

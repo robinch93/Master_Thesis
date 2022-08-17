@@ -10,8 +10,8 @@ public class UpdateScript {
     static String cwd = System.getProperty("user.dir");
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        updateFolderScripts("calculator");
-        // updateFileScript("CalculatorAppium1.java");
+        updateFolderScripts("omni");
+        // updateFileScript("OmniNotesAppium4.java");
     }
 
     public static void updateFileScript(String fileName) throws IOException, InterruptedException {

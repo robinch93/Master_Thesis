@@ -8,3 +8,6 @@ build
 
 /app/bin/
 /app/build/
+.idea
+.settings
+.vscode
